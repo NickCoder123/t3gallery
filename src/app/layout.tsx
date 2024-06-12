@@ -1,9 +1,12 @@
 import "~/styles/globals.css";
 import { TopNav } from "./_components/topnav";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 import { GeistSans } from "geist/font/sans";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
 
 export const metadata = {
   title: "T3 Gallery",
@@ -19,6 +22,7 @@ export default function RootLayout({
   return (
     <ClerkProvider appearance={{ baseTheme: dark }}>
       <html lang="en" className={`${GeistSans.variable}`}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <body className="flex flex-col gap-4">
           <TopNav />
           {children}
